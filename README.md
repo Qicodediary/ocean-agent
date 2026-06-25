@@ -125,6 +125,7 @@ ocean-agent/
 │   │   │       ├── rsdscs_Omon_BCC-CSM2-MAR_ssp585_r1i1p1f1_1990-2100_BATS_daily.csv
 │   │   │       ├── rsds_Omon_BCC-CSM2-MAR_ssp585_r1i1p1f1_1990-2100_BATS_daily.csv
 │   │   │       └── mlotst_Omon_BCC-CSM2-MAR_ssp585_r1i1p1f1_1990-2100_BATS_daily.csv
+│   │   │   └── ssp126/...
 │   │   └── [4 more GCM models for BATS]
 │   │
 │   └── HOT/
@@ -135,6 +136,7 @@ ocean-agent/
 │       │       ├── rsdscs_Omon_CanESM5_ssp585_r1i1p1f1_1990-2100_HOT_daily.csv
 │       │       ├── rsds_Omon_CanESM5_ssp585_r1i1p1f1_1990-2100_HOT_daily.csv
 │       │       └── mlotst_Omon_CanESM5_ssp585_r1i1p1f1_1990-2100_HOT_daily.csv
+│   │   │   └── ssp126/...
 │       └── [8 more GCM models for HOT]
 │
 └── outputs/                        # Generated output files (created automatically)
