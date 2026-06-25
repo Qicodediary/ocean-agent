@@ -228,7 +228,7 @@ Watch the worker terminal - you should see:
 [Job a1b2c3d4] Model run completed!
 ```
 
-####5.3: Retrieve Results
+#### 5.3: Retrieve Results
 
 In the `/docs` interface, expand **GET /jobs/{job_id}**.
 
@@ -263,7 +263,7 @@ Output files are saved in the `outputs/` directory:
 
 
 
-####Submit Model Run Job
+#### Submit Model Run Job
 ```
 POST /jobs
 ```
