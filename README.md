@@ -8,7 +8,7 @@ A web-based system for running a two-layer ocean biogeochemical model with AI ag
 - Automatic MSTL trend analysis with linear regression
 - Support for both Integration (stocks) and Concentration outputs
 - Dual stations (BATS and HOT) with multiple GCM models
-- 4×2 visualization layout for easy trend comparison
+
 
 ---
 
@@ -28,28 +28,11 @@ A web-based system for running a two-layer ocean biogeochemical model with AI ag
 
 ## System Requirements
 
-### Easiest Way: Docker Desktop
-
-**Recommended for all users** - Simplest setup, no dependencies management
-
-- **Docker Desktop** (includes Docker and Docker Compose)
-  - Download: https://www.docker.com/products/docker-desktop
-  - Installation guide: See [INSTALL_DOCKER.md](INSTALL_DOCKER.md)
-  - Works on: macOS, Linux, Windows (WSL2)
-
-### Alternative: Traditional Python Setup
-
-If you prefer not to use Docker:
-
 **Software:**
 - **Python**: 3.9 or later
 - **Redis**: For task queue management
 - **Git** (optional, for cloning)
 
-**Operating Systems (Tested):**
-- macOS 10.15+
-- Ubuntu 18.04 LTS+
-- Windows 10/11 (with WSL2)
 
 **Python Package Dependencies:**
 All dependencies are in `requirements.txt`. Key packages:
@@ -57,50 +40,12 @@ All dependencies are in `requirements.txt`. Key packages:
 - `uvicorn`: ASGI web server
 - `redis`, `rq`: Task queue system
 - `pandas`, `numpy`: Data processing
-- `matplotlib`: Visualization
+- `matplotlib`: Visualisation
 - `statsmodels`: Time series analysis
 - `scikit-learn`: Machine learning utilities
 
-### Hardware Requirements
-
-- **Minimum**: 4GB RAM, 2GB free disk space
-- **Recommended**: 8GB+ RAM, 10GB free disk space (for data storage)
-
----
 
 ## Installation
-
-### Option 1️⃣: Docker Compose Setup (Recommended)
-
-**Step 1: Install Docker Desktop**
-
-See detailed instructions: [INSTALL_DOCKER.md](INSTALL_DOCKER.md)
-
-**Step 2: Download and Extract Project**
-
-```bash
-cd ~/Desktop
-unzip ocean-agent.zip
-cd ocean-agent
-
-# Verify files exist
-ls -la
-# You should see: app/, data/, docker-compose.yml, requirements.txt, etc.
-```
-
-**Step 3: Start the System**
-
-```bash
-docker-compose up
-```
-
-**That's it!** Open browser to `http://127.0.0.1:8000/docs`
-
----
-
-### Option 2️⃣: Traditional Python Setup
-
-If you prefer not to use Docker:
 
 **Step 1: Ensure Python and Dependencies are Installed**
 
@@ -130,31 +75,6 @@ cd ocean-agent
 # Verify files exist
 ls -la
 ```
-
-**Step 3: Create Virtual Environment**
-
-```bash
-# Create virtual environment
-python3 -m venv venv
-
-# Activate it
-source venv/bin/activate  # macOS/Linux
-# or: venv\Scripts\activate  # Windows
-
-# Verify activation (you should see (venv) in your prompt)
-```
-
-**Step 4: Install Python Dependencies**
-
-```bash
-pip install --upgrade pip
-pip install -r requirements.txt
-
-# Verify installation
-pip list | grep fastapi
-```
-
-**Step 5: Start the System** (see [Quick Start](#quick-start) - Option 2)
 
 ---
 
@@ -206,111 +126,38 @@ ocean-agent/
 ```
 
 **Important Notes:**
-- The `data/` directory is NOT included in the zip file. **You must create it and add your own data files.**
 - The `outputs/` directory is created automatically when the system runs.
 - All paths in the code are **relative paths**, so the system works from any location.
 
----
 
-## Data Preparation
 
-### Creating the Data Directory Structure
+**Step 3: Create Virtual Environment**
 
 ```bash
-# From project root (ocean-agent/)
+# Create virtual environment
+python3 -m venv venv
 
-# Create BATS station directories
-mkdir -p data/BATS/parameters
-mkdir -p data/BATS/BCC-CSM2-MAR/ssp585
-mkdir -p data/BATS/CESM2-WACCM/ssp585
-mkdir -p data/BATS/CMCC-CM2-SR5/ssp585
-mkdir -p data/BATS/CMCC-ESM2/ssp585
-mkdir -p data/BATS/GFDL-ESM4/ssp585
+# Activate it
+source venv/bin/activate  # macOS/Linux
+# or: venv\Scripts\activate  # Windows
 
-# Create HOT station directories
-mkdir -p data/HOT/parameters
-mkdir -p data/HOT/CanESM5/ssp585
-mkdir -p data/HOT/CESM2-WACCM/ssp585
-mkdir -p data/HOT/CMCC-CM2-SR5/ssp585
-mkdir -p data/HOT/CMCC-ESM2/ssp585
-mkdir -p data/HOT/EC-Earth-Veg/ssp585
-mkdir -p data/HOT/EC-Earth3/ssp585
-mkdir -p data/HOT/GFDL-ESM4/ssp585
-mkdir -p data/HOT/IPSL-CM6A-LR/ssp585
-mkdir -p data/HOT/NorESM2-MM/ssp585
+# Verify activation (you should see (venv) in your prompt)
 ```
 
-### File Naming Convention
-
-Each model/scenario combination requires **exactly 3 CSV files** with these exact names:
-
-#### BATS Station Files
-```
-rsdscs_Omon_[MODEL]_[SCENARIO]_r1i1p1f1_1990-2100_BATS_daily.csv
-rsds_Omon_[MODEL]_[SCENARIO]_r1i1p1f1_1990-2100_BATS_daily.csv
-mlotst_Omon_[MODEL]_[SCENARIO]_r1i1p1f1_1990-2100_BATS_daily.csv
-```
-
-Example for BCC-CSM2-MAR, ssp585:
-```
-rsdscs_Omon_BCC-CSM2-MAR_ssp585_r1i1p1f1_1990-2100_BATS_daily.csv
-rsds_Omon_BCC-CSM2-MAR_ssp585_r1i1p1f1_1990-2100_BATS_daily.csv
-mlotst_Omon_BCC-CSM2-MAR_ssp585_r1i1p1f1_1990-2100_BATS_daily.csv
-```
-
-#### HOT Station Files
-```
-rsdscs_Omon_[MODEL]_[SCENARIO]_r1i1p1f1_1990-2100_HOT_daily.csv
-rsds_Omon_[MODEL]_[SCENARIO]_r1i1p1f1_1990-2100_HOT_daily.csv
-mlotst_Omon_[MODEL]_[SCENARIO]_r1i1p1f1_1990-2100_HOT_daily.csv
-```
-
-### Parameter Files
-
-Place parameter files in:
-- `data/BATS/parameters/parameter_input_final.csv`
-- `data/HOT/parameters/parameter_input_final_HOT.csv`
-
-These CSV files **must have a column named 'default'** containing parameter values.
-
----
-
-## Quick Start
-
-### 🐳 Option 1: Docker Compose (Recommended - Easiest!)
-
-**Prerequisites:** Docker Desktop installed
-
-One command to start everything:
+**Step 4: Install Python Dependencies**
 
 ```bash
-cd /path/to/ocean-agent
-docker-compose up
+pip install --upgrade pip
+pip install -r requirements.txt
+
+# Verify installation
+pip list | grep fastapi
 ```
 
-Then open in your browser:
-```
-http://127.0.0.1:8000/docs
-```
 
-**That's it!** All components (Redis, API, 3 Workers) start automatically in one terminal.
 
-What happens:
-- ✅ Redis queue starts
-- ✅ FastAPI server starts (port 8000)
-- ✅ 3 Worker processes start
-- ✅ Database initializes
-- ✅ All logs visible in one terminal
-
-To stop, press `Ctrl+C`
-
-**Need to install Docker?** See [INSTALL_DOCKER.md](INSTALL_DOCKER.md)
-
----
-
-### 💻 Option 2: Traditional Python (Alternative)
-
-If you prefer not to use Docker, run these in 3 separate terminal windows:
+**Step 5: Start the System**
+# you need to open three terminals separately
 
 **Terminal 1: Start Redis**
 ```bash
@@ -338,7 +185,7 @@ uvicorn app.main:app --reload --port 8000
 ```
 http://127.0.0.1:8000/docs
 ```
-
+#copy this link to your browser
 ---
 
 ## Using the API
@@ -350,11 +197,12 @@ You'll see the interactive API documentation at `http://127.0.0.1:8000/docs`. Yo
 
 ---
 
-## Running the System
 
-### Full Example: Submit and Monitor a Job
+**Step 5:  Submit and Monitor a Job** 
 
-#### Step 1: Submit a Job
+
+
+#### 5.1: Submit a Job
 
 In the `/docs` interface, expand **POST /jobs** and click "Try it out".
 
@@ -381,7 +229,7 @@ Click "Execute". Response will be:
 
 **Note the job_id!**
 
-#### Step 2: Monitor Progress
+#### 5.2: Monitor Progress
 
 Watch the worker terminal - you should see:
 ```
@@ -392,7 +240,7 @@ Watch the worker terminal - you should see:
 [Job a1b2c3d4] Model run completed!
 ```
 
-#### Step 3: Retrieve Results
+####5.3: Retrieve Results
 
 In the `/docs` interface, expand **GET /jobs/{job_id}**.
 
@@ -417,7 +265,7 @@ When status is "finished", the response includes:
 }
 ```
 
-#### Step 4: Access Output Files
+#### 5.4: Access Output Files
 
 Output files are saved in the `outputs/` directory:
 - `a1b2c3d4.png` - Time series plot
@@ -669,130 +517,4 @@ Check worker terminal:
 # If worker crashed, restart it:
 python worker.py
 ```
-
----
-
-#### 5. API returns 400 error for invalid station/model
-```json
-{
-  "detail": "Unknown station: BATS123"
-}
-```
-
-**Solution:** Check valid options:
-```
-1. Go to http://127.0.0.1:8000/config in browser
-2. Or call GET /config in the API docs
-3. Use exact names from the response
-```
-
----
-
-#### 6. Port 8000 already in use
-```
-ERROR: [Errno 48] Address already in use
-```
-
-**Solution:** Use a different port:
-```bash
-# Use port 8001 instead
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8001
-# Then access at http://127.0.0.1:8001/docs
-```
-
----
-
-### Getting Help
-
-For issues not covered above:
-
-1. **Check worker terminal** for the actual error message
-2. **Verify data files** exist with correct names and paths
-3. **Verify Redis is running** (port 6379)
-4. **Check file permissions** (data files should be readable)
-5. **Check disk space** (10GB recommended for data)
-
----
-
-## Advanced Usage
-
-### Running Multiple Jobs
-
-You can submit jobs from multiple terminals simultaneously:
-```bash
-# Terminal A:
-curl -X POST "http://127.0.0.1:8000/jobs" \
-  -H "Content-Type: application/json" \
-  -d '{"station":"BATS","model":"BCC-CSM2-MAR","scenario":"ssp585","start_year":2020,"end_year":2030}'
-
-# Terminal B:
-curl -X POST "http://127.0.0.1:8000/jobs" \
-  -H "Content-Type: application/json" \
-  -d '{"station":"HOT","model":"CanESM5","scenario":"ssp585","start_year":2020,"end_year":2030}'
-```
-
-Worker will process them sequentially.
-
-### Using with Python
-
-```python
-import requests
-import json
-
-# Submit job
-response = requests.post(
-    "http://127.0.0.1:8000/jobs",
-    json={
-        "station": "BATS",
-        "model": "BCC-CSM2-MAR",
-        "scenario": "ssp585",
-        "start_year": 2020,
-        "end_year": 2050,
-        "output_type": "integration"
-    }
-)
-job_id = response.json()["job_id"]
-print(f"Job ID: {job_id}")
-
-# Check status
-import time
-while True:
-    status_response = requests.get(f"http://127.0.0.1:8000/jobs/{job_id}")
-    status = status_response.json()["status"]
-    print(f"Status: {status}")
-    
-    if status == "finished":
-        result = status_response.json()["result"]
-        print("Results:", json.dumps(result, indent=2))
-        break
-    
-    time.sleep(10)  # Check every 10 seconds
-```
-
----
-
-## Citation
-
-If you use this model system in your research, please cite:
-
-```
-Ocean Box Model Agent (2024)
-https://github.com/your-repo
-```
-
----
-
-## License
-
-[Your license here]
-
----
-
-## Support
-
-For questions or issues:
-1. Check this README first
-2. Check the Troubleshooting section
-3. Review error messages in the worker terminal
-4. Contact: [your-email@example.com]
 
