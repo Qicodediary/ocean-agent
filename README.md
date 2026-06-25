@@ -2,13 +2,6 @@
 
 A web-based system for running a two-layer ocean biogeochemical model with AI agent support. Generates time-series predictions of phytoplankton, zooplankton, nutrients, and chlorophyll under different climate scenarios using CMIP6 data.
 
-**Key Features:**
-- RESTful API for submitting model jobs
-- Asynchronous task queue (no waiting during long computations)
-- Automatic MSTL trend analysis with linear regression
-- Support for both Integration (stocks) and Concentration outputs
-- Dual stations (BATS and HOT) with multiple GCM models
-
 
 ---
 
