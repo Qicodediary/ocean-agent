@@ -1,0 +1,16 @@
+fastapi==0.115.0
+uvicorn==0.30.6
+websockets==12.0
+redis==5.0.8
+rq==1.16.2
+matplotlib==3.9.2
+pydantic==2.9.2
+pandas>=1.5.0
+numpy>=1.23
+xarray>=2022.0
+scipy>=1.9.0
+scikit-learn>=1.0.0
+statsmodels>=0.13.0
+PyAstronomy>=0.19
+sqlalchemy>=2.0.0
+python-dotenv>=1.0.0

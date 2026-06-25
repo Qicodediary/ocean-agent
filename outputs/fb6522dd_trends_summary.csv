@@ -1,0 +1,5 @@
+Variable,Surface (Slope / P-value),Subsurface (Slope / P-value),Unit
+Chla,-0.023497 / 0.000000,0.043582 / 0.000000,mg m^-2/yr
+Pstr,-0.043241 / 0.000000,0.085520 / 0.000000,mmolN m^-2/yr
+Zstr,-0.040001 / 0.000000,0.080549 / 0.000000,mmolN m^-2/yr
+Nutstr,N/A,N/A,mmolN m^-2/yr
