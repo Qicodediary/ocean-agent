@@ -156,22 +156,24 @@ ocean-agent/
 
 **Terminal 1: Start Redis**
 ```bash
+source venv/bin/activate
+#cd to your folder containing all documents
 redis-server
 # Should see: * Ready to accept connections
 ```
 
 **Terminal 2: Start Worker**
 ```bash
-cd /path/to/ocean-agent
 source venv/bin/activate
+#cd to your folder containing all documents
 python worker.py
 # Should see: Worker started, listening for jobs...
 ```
 
 **Terminal 3: Start API**
 ```bash
-cd /path/to/ocean-agent
 source venv/bin/activate
+#cd to your folder containing all documents
 uvicorn app.main:app --reload --port 8000
 # Should see: Uvicorn running on http://0.0.0.0:8000
 ```
