@@ -17,12 +17,10 @@ A web-based system for running a two-layer ocean biogeochemical model with AI ag
 1. [System Requirements](#system-requirements)
 2. [Installation](#installation)
 3. [Project Structure](#project-structure)
-4. [Quick Start](#quick-start)
-5. [Data Preparation](#data-preparation)
-6. [Running the System](#running-the-system)
-7. [API Documentation](#api-documentation)
-8. [Output Files](#output-files)
-9. [Troubleshooting](#troubleshooting)
+4. [Running the System](#running-the-system)
+5. [Submit and Monitor a Job](#submit-and-monitor-a-job)
+6. [Output Files](#output-files)
+7. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -75,7 +73,28 @@ cd ocean-agent
 # Verify files exist
 ls -la
 ```
+**Step 3: Create Virtual Environment**
 
+```bash
+# Create virtual environment
+python3 -m venv venv
+
+# Activate it
+source venv/bin/activate  # macOS/Linux
+# or: venv\Scripts\activate  # Windows
+
+# Verify activation (you should see (venv) in your prompt)
+```
+
+**Step 4: Install Python Dependencies**
+
+```bash
+pip install --upgrade pip
+pip install -r requirements.txt
+
+# Verify installation
+pip list | grep fastapi
+```
 ---
 
 ## Project Structure
@@ -131,33 +150,9 @@ ocean-agent/
 
 
 
-**Step 3: Create Virtual Environment**
 
-```bash
-# Create virtual environment
-python3 -m venv venv
+## Running the System
 
-# Activate it
-source venv/bin/activate  # macOS/Linux
-# or: venv\Scripts\activate  # Windows
-
-# Verify activation (you should see (venv) in your prompt)
-```
-
-**Step 4: Install Python Dependencies**
-
-```bash
-pip install --upgrade pip
-pip install -r requirements.txt
-
-# Verify installation
-pip list | grep fastapi
-```
-
-
-
-**Step 5: Start the System**
-# you need to open three terminals separately
 
 **Terminal 1: Start Redis**
 ```bash
@@ -185,24 +180,17 @@ uvicorn app.main:app --reload --port 8000
 ```
 http://127.0.0.1:8000/docs
 ```
-#copy this link to your browser
----
+copy this link to your browser
 
-## Using the API
-
-You'll see the interactive API documentation at `http://127.0.0.1:8000/docs`. You can:
-- **POST /jobs** - Submit a new model run
-- **GET /jobs/{job_id}** - Check status and get results
-- **GET /config** - See available stations, models, scenarios
 
 ---
 
 
-**Step 5:  Submit and Monitor a Job** 
+## Submit and Monitor a Job
 
 
 
-#### 5.1: Submit a Job
+#### Submit a Job
 
 In the `/docs` interface, expand **POST /jobs** and click "Try it out".
 
@@ -229,7 +217,7 @@ Click "Execute". Response will be:
 
 **Note the job_id!**
 
-#### 5.2: Monitor Progress
+#### Monitor Progress
 
 Watch the worker terminal - you should see:
 ```
@@ -265,7 +253,7 @@ When status is "finished", the response includes:
 }
 ```
 
-#### 5.4: Access Output Files
+#### Access Output Files
 
 Output files are saved in the `outputs/` directory:
 - `a1b2c3d4.png` - Time series plot
@@ -273,53 +261,9 @@ Output files are saved in the `outputs/` directory:
 - `a1b2c3d4_trends_summary.csv` - Slope and p-value statistics
 - `a1b2c3d4_output.csv` - Complete daily data
 
----
 
-## API Documentation
 
-### Endpoints
-
-#### 1. Health Check
-```
-GET /
-```
-Check if API is running.
-
-**Response:**
-```json
-{
-  "status": "ok",
-  "message": "Ocean Box Model Agent API is running"
-}
-```
-
----
-
-#### 2. Get Available Configuration
-```
-GET /config
-```
-List all available stations, models, and scenarios.
-
-**Response:**
-```json
-{
-  "BATS": {
-    "latitude": 31,
-    "models": ["BCC-CSM2-MAR", "CESM2-WACCM", "CMCC-CM2-SR5", "CMCC-ESM2", "GFDL-ESM4"],
-    "scenarios": ["ssp126", "ssp245", "ssp585"]
-  },
-  "HOT": {
-    "latitude": 22,
-    "models": ["CanESM5", "CESM2-WACCM", ...],
-    "scenarios": ["ssp126", "ssp245", "ssp585"]
-  }
-}
-```
-
----
-
-#### 3. Submit Model Run Job
+####Submit Model Run Job
 ```
 POST /jobs
 ```
