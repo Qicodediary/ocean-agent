@@ -228,8 +228,6 @@ Watch the worker terminal - you should see:
 [Job a1b2c3d4] Model run completed!
 ```
 
-#### 5.3: Retrieve Results
-
 In the `/docs` interface, expand **GET /jobs/{job_id}**.
 
 Enter the job_id (e.g., "a1b2c3d4") and click "Execute".
