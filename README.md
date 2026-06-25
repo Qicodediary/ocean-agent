@@ -13,7 +13,7 @@ A web-based system for running a two-layer ocean biogeochemical model with AI ag
 4. [Running the System](#running-the-system)
 5. [Submit and Monitor a Job](#submit-and-monitor-a-job)
 6. [Output Files](#output-files)
-7. [Troubleshooting](#troubleshooting)
+
 
 ---
 
