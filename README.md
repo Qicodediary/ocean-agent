@@ -267,10 +267,10 @@ POST /jobs
 ```json
 {
   "station": "BATS",           // Required: "BATS" or "HOT"
-  "model": "BCC-CSM2-MAR",      // Required: model name from /config
-  "scenario": "ssp585",          // Required: scenario from /config
-  "start_year": 2020,            // Required: simulation start
-  "end_year": 2050,              // Required: simulation end
+  "model": "BCC-CSM2-MAR",      // Required: model names (5 models for BATS and 9 models for HOT to choose)
+  "scenario": "ssp585",          // Required: scenario from /config(ssp126 or ssp585)
+  "start_year": 1990,            // Required: simulation start (1990)
+  "end_year": 2100,              // Required: simulation end (2100)
   "output_type": "integration"   // Optional: "integration" (default) or "concentration"
 }
 ```
