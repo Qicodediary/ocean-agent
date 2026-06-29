@@ -197,8 +197,8 @@ Enter this request body:
   "station": "BATS",
   "model": "BCC-CSM2-MAR",
   "scenario": "ssp585",
-  "start_year": 2020,
-  "end_year": 2025,
+  "start_year": 1990,
+  "end_year": 2100,
   "output_type": "integration"
 }
 ```
