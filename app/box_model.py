@@ -174,7 +174,7 @@ def generate_trend_plots(monthly_df, output_prefix, station, model, scenario):
                             color=COLORS["fit_line"],
                             label=f'Fit (slope={slope_s:.4f}/yr, p={p_s:.4f})')
                 stats_results.append({
-                    "Variable": display_name,
+                    "Variable": surface_col,
                     "Layer": "Surface",
                     "Slope": round(slope_s, 6),
                     "P_value": round(p_s, 6),
@@ -197,7 +197,7 @@ def generate_trend_plots(monthly_df, output_prefix, station, model, scenario):
                            color=COLORS["fit_line"],
                            label=f'Fit (slope={slope_d:.4f}/yr, p={p_d:.4f})')
                 stats_results.append({
-                    "Variable": display_name,
+                    "Variable": subsurface_col,
                     "Layer": "Subsurface",
                     "Slope": round(slope_d, 6),
                     "P_value": round(p_d, 6),
@@ -215,9 +215,15 @@ def generate_trend_plots(monthly_df, output_prefix, station, model, scenario):
     
     # Summary CSV
     summary_data = []
-    for display_name, var_key in [("Chla", "Chla"), ("Pstr", "Pstr"), ("Zstr", "Zstr"), ("Nutstr", "Nd_str")]:
-        surface_data = next((item for item in stats_results if item["Variable"] == var_key and item["Layer"] == "Surface"), None)
-        subsurface_data = next((item for item in stats_results if item["Variable"] == var_key and item["Layer"] == "Subsurface"), None)
+    var_mappings = [
+    ("Chla", "Chla", "Chla_sub"),
+    ("Pstr", "Pstr", "Pstr_sub"),
+    ("Zstr", "Zstr", "Zstr_sub"),
+    ("Nutstr", "Nutstr", "Nd_str")
+]
+    for display_name, surface_var, subsurface_var in var_mappings:
+        surface_data = next((item for item in stats_results if item["Variable"] == surface_var and item["Layer"] == "Surface"), None)
+        subsurface_data = next((item for item in stats_results if item["Variable"] == subsurface_var and item["Layer"] == "Subsurface"), None)
         
         if surface_data:
             surface_str = f"{surface_data['Slope']:.6f} / {surface_data['P_value']:.6f}"
